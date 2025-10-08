@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  ReadOnlyPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: ReadOnlyPolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - "ec2:Describe*"
+              - "s3:List*"
+            Resource: "*"
+
+  ReadOnlyRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ReadOnlyRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: arn:aws:iam::<ACCOUNT_ID>:user/view-user
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - !Ref ReadOnlyPolicy
