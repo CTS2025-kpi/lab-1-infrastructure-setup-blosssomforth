@@ -1,0 +1,1 @@
+Create a Role that has this policy attached and can be assumed by user from p3. (1 point) 
